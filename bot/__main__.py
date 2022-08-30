@@ -44,7 +44,7 @@ def stats(update, context):
     mem_t = get_readable_file_size(memory.total)
     mem_a = get_readable_file_size(memory.available)
     mem_u = get_readable_file_size(memory.used)
-    stats = f'<b><i><u>NSFW Mirror Bot Statistics</u></i></b>\n\n'\
+    stats = f'<b><i><u>Mirror Bot Statistics</u></i></b>\n\n'\
             f'<b>Updated:</b> <code>{last_commit}</code>\n'\
             f'<b>I am Working For:</b> <code>{currentTime}</code>\n'\
             f'<b>Total Disk:</b> <code>{total}</code> [{disk}% In use]\n'\
@@ -57,9 +57,6 @@ def stats(update, context):
 
 def start(update, context):
     buttons = ButtonMaker()
-    buttons.buildbutton("Report Group", "https://t.me/OTDiscussion")
-    buttons.buildbutton("Alt Report Group", "https://t.me/mirrorsociety")
-    buttons.buildbutton("Mirror Group", "https://t.me/dhruvmirrorupdates")
     buttons.buildbutton("Owner", "https://t.me/dhruv444")
     reply_markup = InlineKeyboardMarkup(buttons.build_menu(2))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
