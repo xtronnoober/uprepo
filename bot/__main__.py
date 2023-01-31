@@ -7,7 +7,7 @@ from sys import executable
 from telegram import InlineKeyboardMarkup
 from telegram.ext import CommandHandler
 
-from bot import bot, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, AUTHORIZED_CHATS, LOGGER, Interval, INCOMPLETE_TASK_NOTIFIER, DB_URI, alive, TITLE_NAME, app, main_loop, rss_session, USER_SESSION_STRING
+from bot import bot, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, AUTHORIZED_CHATS, LOGGER, Interval, INCOMPLETE_TASK_NOTIFIER, DB_URI, TITLE_NAME, app, main_loop, rss_session, USER_SESSION_STRING
 from .helper.ext_utils.fs_utils import start_cleanup, clean_all, exit_clean_up
 from .helper.ext_utils.telegraph_helper import telegraph
 from .helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time
@@ -73,7 +73,7 @@ def restart(update, context):
     restart_message = sendMessage("Restarting...", context.bot, update.message)
     if Interval:
         Interval[0].cancel()
-    alive.kill()
+    
     clean_all()
     srun(["pkill", "-9", "-f", "gunicorn|extra-api|last-api|megasdkrest|new-api"])
     srun(["python3", "update.py"])
