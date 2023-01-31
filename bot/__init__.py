@@ -2,8 +2,8 @@ from logging import getLogger, FileHandler, StreamHandler, INFO, basicConfig, er
 from socket import setdefaulttimeout
 from faulthandler import enable as faulthandler_enable
 from telegram.ext import Updater as tgUpdater
-from qbittorrentapi import Client as qbClient
-from aria2p import API as ariaAPI, Client as ariaClient
+
+#from aria2p import API as ariaAPI, Client as ariaClient
 from os import remove as osremove, path as ospath, environ
 from requests import get as rget
 from json import loads as jsnloads
@@ -66,13 +66,7 @@ try:
 except:
     pass
 
-try:
-    TORRENT_TIMEOUT = getConfig('TORRENT_TIMEOUT')
-    if len(TORRENT_TIMEOUT) == 0:
-        raise KeyError
-    TORRENT_TIMEOUT = int(TORRENT_TIMEOUT)
-except:
-    TORRENT_TIMEOUT = None
+
 
 PORT = environ.get('PORT')
 Popen([f"gunicorn web.wserver:app --bind 0.0.0.0:{PORT}"], shell=True)
@@ -103,13 +97,7 @@ try:
 except:
     pass
 
-aria2 = ariaAPI(
-    ariaClient(
-        host="http://localhost",
-        port=6800,
-        secret="",
-    )
-)
+
 
 def get_client():
     return qbClient(host="localhost", port=8090)
@@ -158,9 +146,9 @@ except KeyError:
 try:
     TITLE_NAME = getConfig('TITLE_NAME')
     if len(TITLE_NAME) == 0:
-        TITLE_NAME = 'Dhruv-Mirror'
+        TITLE_NAME = 'Xtron-Mirror'
 except KeyError:
-    TITLE_NAME = 'Dhruv-Mirror'    
+    TITLE_NAME = 'Xtron'    
 try:
     aid = getConfig('AUTHORIZED_CHATS')
     aid = aid.split()
@@ -215,20 +203,7 @@ except:
     USER_SESSION_STRING = None
     rss_session = None
 
-def aria2c_init():
-    try:
-        log_info("Initializing Aria2c")
-        link = "https://linuxmint.com/torrents/lmde-5-cinnamon-64bit.iso.torrent"
-        dire = DOWNLOAD_DIR.rstrip("/")
-        aria2.add_uris([link], {'dir': dire})
-        sleep(3)
-        downloads = aria2.get_downloads()
-        sleep(20)
-        for download in downloads:
-            aria2.remove([download], force=True, files=True)
-    except Exception as e:
-        log_error(f"Aria2c initializing error: {e}")
-Thread(target=aria2c_init).start()
+
 
 try:
     MEGA_KEY = getConfig('MEGA_API_KEY')
@@ -469,11 +444,7 @@ try:
     EQUAL_SPLITS = EQUAL_SPLITS.lower() == 'true'
 except:
     EQUAL_SPLITS = False
-try:
-    QB_SEED = getConfig('QB_SEED')
-    QB_SEED = QB_SEED.lower() == 'true'
-except:
-    QB_SEED = False
+
 try:
     CUSTOM_FILENAME = getConfig('CUSTOM_FILENAME')
     if len(CUSTOM_FILENAME) == 0:
