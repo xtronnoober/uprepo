@@ -539,7 +539,10 @@ def _mirror(bot, message, isZip=False, extract=False, isQbit=False, isLeech=Fals
             auth = f"{ussr}:{pssw}"
             auth = "Basic " + b64encode(auth.encode()).decode('ascii')
         else:
-            LOGGER.info("Check mirror.py")) 
+            listener = MirrorListener(bot, message, isZip, extract, isLeech, pswd, tag)
+            Thread(target=TelegramDownloadHelper(listener).add_download, args=(message, f'{DOWNLOAD_DIR}{listener.uid}/', name)).start()
+                
+#            LOGGER.info("Check mirror.py")) 
 #            auth = ''
 #        Thread(target=add_aria2c_download, args=(link, f'{DOWNLOAD_DIR}{listener.uid}', listener, name, auth)).start()
 
