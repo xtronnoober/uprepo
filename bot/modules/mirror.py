@@ -54,7 +54,7 @@ class MirrorListener:
 
     def clean(self):
         try:
-            aria2.purge()
+            
             Interval[0].cancel()
             del Interval[0]
             delete_all_messages()
