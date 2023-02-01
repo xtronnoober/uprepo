@@ -10,7 +10,7 @@ try:
     BASE_URL = BASE_URL.rstrip("/")
 except TypeError:
     BASE_URL = None
-PORT = environ.get('PORT', None)
+#PORT = environ.get('PORT', None)
 if BASE_URL is not None:
     while True:
         try:
